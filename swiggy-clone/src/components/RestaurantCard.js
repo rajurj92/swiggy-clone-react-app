@@ -16,6 +16,7 @@ export default function RestaurantCard({recipeData}){
       <h4>{recipeData.name}</h4>
 
       <p>{recipeData.cuisine}</p>
+      {/* <p>{recipeData.ingredients}</p> */}
 
       <p>⭐ {recipeData.rating}</p>
         </div>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
+import SearchBar from "./SerachBar";
 
 export default function Body() {
     const [recipes, setRecipes] = useState([]);
+    const[val, setVal] = useState()
 
   async function fetchData() {
         const res = await fetch('https://dummyjson.com/recipes')
@@ -13,8 +15,21 @@ export default function Body() {
     useEffect(()=>{
      fetchData();
     }, [])
+
+
+    function searchItems(e){
+        console.log(e.target.value)
+    }
     return(
+       <section>
+        <SearchBar/>
+        <div>
+             <h1>Top restaurant chains in Hyderabad</h1>
+        </div>
+       
+            
         <div className="container">
+
         {
         recipes.map((item) => (
           <RestaurantCard
@@ -24,5 +39,6 @@ export default function Body() {
         ))
       }
       </div>
+    </section>
     )
 }
