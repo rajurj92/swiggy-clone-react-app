@@ -1,0 +1,55 @@
+.App-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+.logo-container{
+  width: 60px;
+}
+.app-logo{
+  width: 100%;
+}
+.nav-container > ul{
+  display: flex;
+  list-style: none;
+}
+.nav-container > ul > li{
+    margin: 10px;
+}
+.nav-container > ul > li >a{
+   text-decoration: none;
+}
+.nav-container > ul > li > a:active{
+  color: orange;
+}
+.footer-container{
+  text-align: center;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 20px;
+}
+.container > .card {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background: #f5f5f5;
+
+  width: 200px;
+
+  padding: 15px;
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  transition: 0.3s;
+}
+.container > .card >.card-img{
+  width: 100%;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
