@@ -1,0 +1,2 @@
+export const API_URL = "https://dummyjson.com/recipes";
+export const APP_LOGO = "https://img.magnific.com/premium-vector/logo-food-company-that-says-sun-sun-sunflower_917213-253424.jpg?semt=ais_hybrid&w=740&q=80";
