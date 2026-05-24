@@ -1,4 +1,5 @@
-export default function RestaurantCard({recipeData}){
+import { CDN_URL } from "../utils/config"
+export default function RestaurantCard({restData}){
 
 
     return(
@@ -6,22 +7,25 @@ export default function RestaurantCard({recipeData}){
         <div className="card">
          <div className="card-img" >
           <img
-        src={recipeData.image}
-        alt={recipeData.name}
-        width="200"
+          src={`${CDN_URL}${restData?.info?.cloudinaryImageId}`}
+        
+        alt={restData?.info?.name}
+        
         />
             </div>      
         <div className="card-body">
 
-      <h4>{recipeData.name}</h4>
+      <h4>{restData?.info?.name}</h4>
 
-      <p>{recipeData.cuisine}</p>
-      {/* <p>{recipeData.ingredients}</p> */}
-
-      <p>⭐ {recipeData.rating}</p>
+      <p>{restData?.info?.cuisines}</p>
+      {/* <p>{restData.ingredients}</p> */}
+<p>{restData?.info?.costForTwo}</p>
+      <p>⭐ {restData?.info?.avgRating }</p>
+      <p>{restData?.info?.sla?.deliveryTime} minutes</p>
         </div>
         <div className="card-footer">
             
+
         </div>
 
 

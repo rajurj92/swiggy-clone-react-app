@@ -1,87 +1,95 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import FilterButton from "./FilterButton";
-import { API_URL } from "../utils/config";
+import { API_URL, proxy } from "../utils/config";
 import Shimmer from "./Shimmer";
 
-
 export default function Body() {
-    const [recipes, setRecipes] = useState([]);
-    const [filteredRecipes, setfilteredRecipes] = useState([]);
-    const[inputText, setInputText] = useState("")
 
-
+  const [restaurants, setrestaurants] = useState([]);
+  const [filteredrestaurants, setfilteredrestaurants] = useState([]);
+  const [inputText, setInputText] = useState("");
 
   async function fetchData() {
-        const res = await fetch(API_URL)
-        const data = await res.json();
-        console.log(data);
-         setRecipes(data.recipes);
-         setfilteredRecipes(data.recipes)
-    }
-    useEffect(()=>{
-     fetchData();
-        const filtered = recipes.filter((res) =>
-      res.name
-         .toLowerCase()
-         .includes(inputText.toLowerCase())
-   );
+    const res = await fetch(proxy + API_URL);
+    const data = await res.json();
+    const restaurantData =
+      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
-   setfilteredRecipes(filtered);
-    }, [inputText, recipes])
+    setrestaurants(restaurantData);
 
+    setfilteredrestaurants(restaurantData);
+  }
 
-    function searchItems(e){
-        console.log(e.target.value)
-    }
-  //   const clickHandler = ()=>{
-  //      const filteredRecipes = recipes.filter((res)=>
-  //     res.name
-  //    .toLowerCase()
-  //    .includes(inputText.toLowerCase())
-  //      );
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  //  setfilteredRecipes(filteredRecipes);
-  //   }
-    // function submitFiler(){
-    //   console.log("clicked")
-    // }
-   
-      return  recipes.length===0?
-        (<Shimmer/>):
-      (
-      <section>
-       <section className="filter-section">
-            <div className="seacrhbar-container">
-            <input type="text" id="searchText" className="search-input"  placeholder="Search food..." value={inputText} onChange={(e)=>{
-                setInputText(e.target.value)
-                console.log(e.target.value)
-            }}/>
-            {/* <button onClick={clickHandler}>Search</button> */}
-          
+  useEffect(() => {
+
+    const filtered = restaurants.filter((res) =>
+      res.info.name
+        .toLowerCase()
+        .includes(inputText.toLowerCase())
+    );
+
+    setfilteredrestaurants(filtered);
+
+  }, [inputText, restaurants]);
+
+  return restaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
+    <section>
+
+      <section className="filter-section">
+
+        <div className="searchbar-container">
+
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search food..."
+            value={inputText}
+            onChange={(e) => {
+              setInputText(e.target.value);
+            }}
+          />
+
         </div>
-        <button onClick={()=>{
-          const filterData = recipes.filter((res)=>res.rating>4.8 );
-          setRecipes(filterData);
-            // console.log(filterData)
-        }}>Top Rated Restaurants</button>
-        </section>
-        <div>
-             <h1>Top restaurant chains in Hyderabad</h1>
-        </div>
-       
-            
-        <div className="container">
+
+        <button
+          onClick={() => {
+
+            const filterData = restaurants.filter(
+              (res) => res.info.avgRating > 4
+            );
+
+            setfilteredrestaurants(filterData);
+
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+
+      </section>
+
+      <div>
+        <h1>Top restaurant chains in Hyderabad</h1>
+      </div>
+
+      <div className="container">
 
         {
-        filteredRecipes.map((item) => (
-          <RestaurantCard
-            key={item.id}
-            recipeData={item}
-          />
-        ))
-      }
+          filteredrestaurants.map((item) => (
+            <RestaurantCard
+              key={item.info.id}
+              restData={item}
+            />
+          ))
+        }
+
       </div>
+
     </section>
-    )
+  );
 }
