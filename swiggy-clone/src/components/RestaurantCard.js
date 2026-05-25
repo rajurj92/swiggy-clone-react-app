@@ -17,7 +17,7 @@ export default function RestaurantCard({restData}){
 
       <h4>{restData?.info?.name}</h4>
 
-      <p>{restData?.info?.cuisines}</p>
+      <p>{restData?.info?.cuisines.join(", ")}</p>
       {/* <p>{restData.ingredients}</p> */}
 <p>{restData?.info?.costForTwo}</p>
       <p>⭐ {restData?.info?.avgRating }</p>
