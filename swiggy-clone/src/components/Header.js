@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import {APP_LOGO} from '../utils/config'
+import { useState } from 'react';
+import {APP_LOGO} from '../utils/config';
+import { Link } from 'react-router-dom';
+
 export default function Header(){
     const[loginText, setLoginText] = useState("Login")
 
@@ -16,10 +18,10 @@ export default function Header(){
             </div>
             <div className="nav-container">
                 <ul>
-                    <li><a>Home</a></li>
-                    <li><a>About Us</a></li>
-                    <li><a>Contact US</a></li>
-                    <li><a>Cart</a></li>
+                    <li><Link to={'/'}>Home</Link></li>
+                    <li><Link to={'/aboutus'}>About Us</Link></li>
+                    <li><Link to={'/contact'}>Contact US</Link></li>
+                    <li><Link to={'/cart'}>Cart</Link></li>
                     <li><button onClick={textHandler}>{loginText}</button></li>
 
                 </ul>
