@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { API_URL, proxy } from "../utils/config";
+import { API_URL} from "../utils/config";
 import Shimmer from "./Shimmer";
 
 export default function Body() {
@@ -8,15 +8,15 @@ export default function Body() {
   const [restaurants, setrestaurants] = useState([]);
   const [filteredrestaurants, setfilteredrestaurants] = useState([]);
   const [inputText, setInputText] = useState("");
+  // const [showClearFilter, setShowClearFilter] = useState(false);
+
+  const [showClearFilter, setShowClearFilter] = useState(false)
 
   async function fetchData() {
-    const res = await fetch(proxy + API_URL);
+    const res = await fetch(API_URL);
     const data = await res.json();
-    const restaurantData =
-      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
+    const restaurantData = data.recipes;
     setrestaurants(restaurantData);
-
     setfilteredrestaurants(restaurantData);
   }
 
@@ -27,7 +27,7 @@ export default function Body() {
   useEffect(() => {
 
     const filtered = restaurants.filter((res) =>
-      res.info.name
+      res.name
         .toLowerCase()
         .includes(inputText.toLowerCase())
     );
@@ -52,6 +52,7 @@ export default function Body() {
             value={inputText}
             onChange={(e) => {
               setInputText(e.target.value);
+              // setShowClearFilter(true);
             }}
           />
 
@@ -61,15 +62,49 @@ export default function Body() {
           onClick={() => {
 
             const filterData = restaurants.filter(
-              (res) => res.info.avgRating > 4
+              (res) => res.rating > 4.9
             );
 
             setfilteredrestaurants(filterData);
-
+             setShowClearFilter(true);
+            
           }}
         >
           Top Rated Restaurants
         </button>
+        {
+        showClearFilter && (
+          <button
+          onClick = {()=>{
+            setfilteredrestaurants(restaurants);
+            setInputText("");
+            setShowClearFilter(true)
+          }}
+          >Clear Filter</button>
+        )
+        }
+
+
+        
+           {/* {
+          showClearFilter && (
+            <button
+              id="clearFilter"
+              onClick={() => {
+
+                setfilteredrestaurants(restaurants);
+
+               
+
+                setShowClearFilter(false);
+
+              }}
+            >
+              Clear Filter
+            </button>
+          )
+        } */}
+        
 
       </section>
 
@@ -82,7 +117,7 @@ export default function Body() {
         {
           filteredrestaurants.map((item) => (
             <RestaurantCard
-              key={item.info.id}
+              key={item.id}
               restData={item}
             />
           ))
