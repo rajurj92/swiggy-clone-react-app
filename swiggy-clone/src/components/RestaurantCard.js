@@ -9,13 +9,13 @@ export default function RestaurantCard({restData}){
     return(
 
      
-        <div className="card"    onClick={() =>
-                            navigate(`/recipes/${restData.id}`)}>
+        <div className="card"    
+        onClick={() =>
+        navigate(`/recipes/${restData.id}`)}>
          <div className="card-img" >
           <img
           src={restData?.image}
-        
-        alt={restData?.name}
+          alt={restData?.name}
         
         />
             </div>      
