@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {APP_LOGO} from '../utils/config';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 export default function Header(){
     const[loginText, setLoginText] = useState("Login")
@@ -9,6 +10,7 @@ export default function Header(){
         loginText === "Login" ?  setLoginText("Logout") : setLoginText("Login")
      
     }
+    const onlineStatus = useOnlineStatus();
 
     return(
         <header className="App-header">
@@ -18,6 +20,7 @@ export default function Header(){
             </div>
             <div className="nav-container">
                 <ul>
+                    <li>{(onlineStatus) ? "online" : "offline"}</li>
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/aboutus'}>About Us</Link></li>
                     <li><Link to={'/contact'}>Contact US</Link></li>

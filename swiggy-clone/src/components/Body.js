@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { API_URL} from "../utils/config";
 import Shimmer from "./Shimmer";
-
+import useOnlineStatus from "../utils/useOnlineStatus";
 export default function Body() {
 
   const [restaurants, setrestaurants] = useState([]);
@@ -35,6 +35,11 @@ export default function Body() {
     setfilteredrestaurants(filtered);
 
   }, [inputText, restaurants]);
+const onlineStatus = useOnlineStatus();
+  if(onlineStatus === false){
+    return <h1>Looks like your offline , please check your internet</h1>
+  }
+
 
   return restaurants.length === 0 ? (
     <Shimmer />
