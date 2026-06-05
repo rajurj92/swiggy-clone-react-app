@@ -24,6 +24,7 @@ export default function Header(){
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/aboutus'}>About Us</Link></li>
                     <li><Link to={'/contact'}>Contact US</Link></li>
+                    <li><Link to={'/groceries'}>Groceries</Link></li>
                     <li><Link to={'/cart'}>Cart</Link></li>
                     <li><button onClick={textHandler}>{loginText}</button></li>
 
