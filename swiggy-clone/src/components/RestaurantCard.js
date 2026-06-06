@@ -40,5 +40,18 @@ export default function RestaurantCard({restData}){
             </div>
    
       
-    )
-}
+    );
+
+    
+};
+export const  withDifficultyLabel = (RestaurantCard) =>{
+    return (props) =>{
+        return(
+            <>
+            <label style={{}}>Difficulty</label>
+            <RestaurantCard {...props}/>
+            </>
+        );
+    };
+};
+

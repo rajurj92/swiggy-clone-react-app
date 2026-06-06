@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withDifficultyLabel} from "./RestaurantCard";
 import { API_URL} from "../utils/config";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 export default function Body() {
 
   const [restaurants, setrestaurants] = useState([]);
@@ -36,6 +37,8 @@ export default function Body() {
 
   }, [inputText, restaurants]);
 const onlineStatus = useOnlineStatus();
+const RestaurantCardLabel  = withDifficultyLabel(RestaurantCard)
+
   if(onlineStatus === false){
     return <h1>Looks like your offline , please check your internet</h1>
   }
@@ -119,14 +122,21 @@ const onlineStatus = useOnlineStatus();
 
       <div className="container">
 
-        {
-          filteredrestaurants.map((item) => (
-            <RestaurantCard
-              key={item.id}
-              restData={item}
-            />
-          ))
-        }
+       {
+  filteredrestaurants.map((item) =>
+    item.difficulty ? (
+      <RestaurantCardLabel
+        key={item.id}
+        restData={item}
+      />
+    ) : (
+      <RestaurantCard
+        key={item.id}
+        restData={item}
+      />
+    )
+  )
+}
 
       </div>
 

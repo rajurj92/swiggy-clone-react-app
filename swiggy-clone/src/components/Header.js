@@ -13,7 +13,7 @@ export default function Header(){
     const onlineStatus = useOnlineStatus();
 
     return(
-        <header className="App-header">
+        <header className="App-header flex">
        
             <div className="logo-container">
                  <img src={APP_LOGO} className="app-logo" alt="logo" />
