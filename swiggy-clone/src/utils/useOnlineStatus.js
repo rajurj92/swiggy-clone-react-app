@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 
+const useOnlineStatus = () => {
+  const [onlineStatus, setOnlineStatus] = useState(true);
 
-const useOnlineStatus = () =>{
-const [onlineStatus, setOnlineStatus] = useState(true);
+  useEffect(() => {
+    window.addEventListener("online", () => {
+      setOnlineStatus(true);
+      // console.log("You are now connected to the network.");
+    });
+    window.addEventListener("offline", () => {
+      setOnlineStatus(false);
+      //  console.log("You are now not connected to the network.");
+    });
+  }, []);
 
-    useEffect(()=>{
-        window.addEventListener("online", () => {
-              setOnlineStatus(true);
-            // console.log("You are now connected to the network.");
-        });
-        window.addEventListener("offline", () => {
-                setOnlineStatus(false);
-                //  console.log("You are now not connected to the network.");
-        });
-    }, [])
+  return onlineStatus;
+};
 
-    return  onlineStatus;
-    
-}
-
-export default useOnlineStatus
+export default useOnlineStatus;
