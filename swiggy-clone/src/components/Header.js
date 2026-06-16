@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {APP_LOGO} from '../utils/config';
 import { Link } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import UserContext from '../utils/UserContext';
+import { useSelector } from 'react-redux';
+
 
 export default function Header(){
     const[loginText, setLoginText] = useState("Login")
@@ -11,6 +14,10 @@ export default function Header(){
      
     }
     const onlineStatus = useOnlineStatus();
+
+    const {name} = useContext(UserContext);
+
+    const cartItems  = useSelector((store) => store.cart.items)
 
     return(
         <header className="App-header flex">
@@ -25,8 +32,9 @@ export default function Header(){
                     <li><Link to={'/aboutus'}>About Us</Link></li>
                     <li><Link to={'/contact'}>Contact US</Link></li>
                     <li><Link to={'/groceries'}>Groceries</Link></li>
-                    <li><Link to={'/cart'}>Cart</Link></li>
+                    <li><Link to={'/cart'}>Cart ({cartItems.length}-items)</Link></li>
                     <li><button onClick={textHandler}>{loginText}</button></li>
+                    <li>{name}</li>
 
                 </ul>
             </div>

@@ -124,18 +124,18 @@ const RestaurantCardLabel  = withDifficultyLabel(RestaurantCard)
 
        {
   filteredrestaurants.map((item) =>
-    item.difficulty ? (
-      <RestaurantCardLabel
-        key={item.id}
-        restData={item}
-      />
-    ) : (
+    // item.difficulty ? (
+    //   <RestaurantCardLabel
+    //     key={item.id}
+    //     restData={item}
+    //   />
+    // ) : (
       <RestaurantCard
         key={item.id}
         restData={item}
       />
     )
-  )
+  
 }
 
       </div>
