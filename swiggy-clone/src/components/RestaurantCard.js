@@ -1,57 +1,23 @@
-
-// import { Link } from "react-router-dom";
-import { useParams, useNavigate } from "react-router-dom";
- 
-export default function RestaurantCard({restData}){
-
-     const navigate = useNavigate();
-
-    return(
-
-     
-        <div className="card"    
-        onClick={() =>
-        navigate(`/recipes/${restData.id}`)}>
-         <div className="card-img" >
-          <img
-          src={restData?.image}
-          alt={restData?.name}
-        
+import { CDN_URL } from "../utils/config";
+export default function RestaurantCard({ restData }) {
+  return (
+    <div className="card">
+      <div className="card-img">
+        <img
+          src={`${CDN_URL}${restData?.info?.cloudinaryImageId}`}
+          alt={restData?.info?.name}
         />
-            </div>      
-        <div className="card-body">
+      </div>
+      <div className="card-body">
+        <h4>{restData?.info?.name}</h4>
 
-      <h4>{restData?.name}</h4>
-
-      <p>{restData?.cuisines}</p>
-      {/* <p>{restData.ingredients}</p> */}
-{/* <p>{restData?.info?.costForTwo}</p> */}
-      <p>⭐ {restData?.rating }</p>
-      {/* <p>{restData?.info?.sla?.deliveryTime} minutes</p> */}
-        </div>
-        <div className="card-footer">
-            
-
-        </div>
-
-
-
-                 
-            </div>
-   
-      
-    );
-
-    
-};
-export const  withDifficultyLabel = (RestaurantCard) =>{
-    return (props) =>{
-        return(
-            <>
-            <label style={{}}>Difficulty</label>
-            <RestaurantCard {...props}/>
-            </>
-        );
-    };
-};
-
+        <p>{restData?.info?.cuisines.join(", ")}</p>
+        {/* <p>{restData.ingredients}</p> */}
+        <p>{restData?.info?.costForTwo}</p>
+        <p>⭐ {restData?.info?.avgRating}</p>
+        <p>{restData?.info?.sla?.deliveryTime} minutes</p>
+      </div>
+      <div className="card-footer"></div>
+    </div>
+  );
+}

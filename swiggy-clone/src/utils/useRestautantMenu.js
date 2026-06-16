@@ -2,34 +2,28 @@ import { useEffect, useState } from "react";
 import { API_URL, proxy } from "../utils/config";
 import { useParams } from "react-router-dom";
 
-const useRestaurantMenu = () =>{
-const[recipe, setRecipe] = useState(null);
- const { id } = useParams();
+const useRestaurantMenu = () => {
+  const [recipe, setRecipe] = useState(null);
+  const { id } = useParams();
 
-
- useEffect(()=>{
+  useEffect(() => {
     fetchData();
- }, [])
+  }, []);
 
- const fetchData = async () => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`https://dummyjson.com/recipes/${id}`);
 
-        try {
+      const data = await res.json();
 
-            const res = await fetch(
-                `https://dummyjson.com/recipes/${id}`
-            );
+      console.log(data);
 
-            const data = await res.json();
+      setRecipe(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  return recipe;
+};
 
-            console.log(data);
-
-            setRecipe(data);
-
-        } catch (err) {
-            console.error(err);
-        }
-    };
-    return recipe;
-}
-
-export default useRestaurantMenu
+export default useRestaurantMenu;

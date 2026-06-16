@@ -1,58 +1,57 @@
-import React, {lazy, Suspense}from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import AboutUS from './components/AboutUs';
-import Contact from './components/Contact';
-import Error from './components/Error';
-import Body from './components/Body';
-import RestaurantMenu from './components/RestaurantMenu';
+import React, { lazy, Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AboutUS from "./components/AboutUs";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import Body from "./components/Body";
+import RestaurantMenu from "./components/RestaurantMenu";
 
-
-
-const Grocery = lazy(()=> import('./components/Groceries'));
+const Grocery = lazy(() => import("./components/Groceries"));
 
 const appRouter = createBrowserRouter([
   {
-  path:"/",
-  element:<App/>,
-  children:[
+    path: "/",
+    element: <App />,
+    children: [
       {
-    path:"/",
-    element:<Body/>
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUS />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/groceries",
+        element: (
+          <Suspense fallback={<h1>Loading...!</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/recipes/:id",
+        element: <RestaurantMenu />,
+      },
+    ],
+    errorElement: <Error />,
   },
-  {
-    path:"/aboutus",
-    element:<AboutUS/>
-  },
-  {
-    path:"/contact",
-    element:<Contact/>
-  },
-    {
-    path:"/groceries",
-    element:<Suspense fallback={<h1>Loading...!</h1>}><Grocery/></Suspense>
-  },
-  {
-   path:"/recipes/:id",
-    element:<RestaurantMenu/>
-  }
-  ],
-  errorElement:<Error/>
-  }
-  
+]);
 
-
-])
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={appRouter}/>
-     {/* <App /> */}
-  </React.StrictMode>
+    <RouterProvider router={appRouter} />
+    {/* <App /> */}
+  </React.StrictMode>,
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
