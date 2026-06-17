@@ -3,6 +3,7 @@ import RestaurantCard, { withDifficultyLabel } from "./RestaurantCard";
 import { API_URL } from "../utils/config";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { Link } from "react-router-dom";
 
 export default function Body() {
   const [restaurants, setrestaurants] = useState([]);
@@ -18,6 +19,8 @@ export default function Body() {
     const restaurantData = data.recipes;
     setrestaurants(restaurantData);
     setfilteredrestaurants(restaurantData);
+
+    console.log(restaurantData);
   }
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function Body() {
     setfilteredrestaurants(filtered);
   }, [inputText, restaurants]);
   const onlineStatus = useOnlineStatus();
-  const RestaurantCardLabel = withDifficultyLabel(RestaurantCard);
+  // const RestaurantCardLabel = withDifficultyLabel(RestaurantCard);
 
   if (onlineStatus === false) {
     return <h1>Looks like your offline , please check your internet</h1>;
@@ -103,33 +106,9 @@ export default function Body() {
       </div>
 
       <div className="container">
-<<<<<<< HEAD
-
-       {
-  filteredrestaurants.map((item) =>
-    // item.difficulty ? (
-    //   <RestaurantCardLabel
-    //     key={item.id}
-    //     restData={item}
-    //   />
-    // ) : (
-      <RestaurantCard
-        key={item.id}
-        restData={item}
-      />
-    )
-  
-}
-
-=======
-        {filteredrestaurants.map((item) =>
-          item.difficulty ? (
-            <RestaurantCardLabel key={item.id} restData={item} />
-          ) : (
-            <RestaurantCard key={item.id} restData={item} />
-          ),
-        )}
->>>>>>> 9002a979e7288871e5dbab3353b4ff9224481c39
+        {filteredrestaurants.map((item) => (
+          <RestaurantCard key={item.id} restData={item} />
+        ))}
       </div>
     </section>
   );

@@ -1,23 +1,26 @@
-import { CDN_URL } from "../utils/config";
+import { Link } from "react-router-dom";
+
 export default function RestaurantCard({ restData }) {
   return (
     <div className="card">
-      <div className="card-img">
-        <img
-          src={`${CDN_URL}${restData?.info?.cloudinaryImageId}`}
-          alt={restData?.info?.name}
-        />
-      </div>
-      <div className="card-body">
-        <h4>{restData?.info?.name}</h4>
+      <Link key={restData?.id} to={"/restaurants/" + restData?.id}>
+        <div className="card-img">
+          <img src={restData?.image} alt={restData?.name} />
+        </div>
+        <div className="card-body">
+          <h4>{restData?.id}</h4>
+          <h4>{restData?.name}</h4>
 
-        <p>{restData?.info?.cuisines.join(", ")}</p>
-        {/* <p>{restData.ingredients}</p> */}
-        <p>{restData?.info?.costForTwo}</p>
-        <p>⭐ {restData?.info?.avgRating}</p>
-        <p>{restData?.info?.sla?.deliveryTime} minutes</p>
-      </div>
-      <div className="card-footer"></div>
+          <p>{restData?.cuisines}</p>
+          {/* <p>{restData.ingredients}</p> */}
+          <p>{restData?.costForTwo}</p>
+          <p>⭐ {restData?.rating}</p>
+          <p>{restData?.prepTimeMinutes} minutes</p>
+        </div>
+        <div className="card-footer">
+          <button>Add to cart</button>
+        </div>
+      </Link>
     </div>
   );
 }
